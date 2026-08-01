@@ -2,20 +2,21 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026年6-8月水饮节促销商品查询工具</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
             font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 8px;
         }
         
         .container {
@@ -23,46 +24,48 @@
             margin: 0 auto;
         }
         
+        /* Header */
         .header {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
         }
         
         .header h1 {
             color: #667eea;
-            margin-bottom: 10px;
-            font-size: 28px;
+            font-size: 20px;
+            margin-bottom: 4px;
         }
         
         .header p {
-            color: #666;
-            font-size: 14px;
+            color: #888;
+            font-size: 13px;
         }
         
+        /* Search Box */
         .search-box {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
         }
         
         .search-row {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
         
         .search-input {
             flex: 1;
-            padding: 12px 20px;
+            padding: 14px 16px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            min-width: 0;
         }
         
         .search-input:focus {
@@ -71,66 +74,67 @@
         }
         
         .btn {
-            padding: 12px 30px;
+            padding: 14px 24px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s;
+            white-space: nowrap;
         }
         
-        .btn:hover {
-            transform: translateY(-2px);
+        .btn:active {
+            transform: scale(0.96);
         }
         
         .btn-secondary {
             background: #6c757d;
-            padding: 8px 15px;
+            padding: 14px 18px;
             font-size: 14px;
         }
         
+        /* Filter Section */
         .filter-section {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .filter-label {
             font-size: 14px;
-            color: #666;
+            color: #555;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
         }
         
         .filter-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 6px;
         }
         
         .filter-btn {
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: 2px solid #667eea;
             background: white;
             color: #667eea;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
+            transition: all 0.2s;
+            font-size: 13px;
             font-weight: 500;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .filter-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
+        .filter-btn:active {
+            transform: scale(0.95);
         }
         
         .filter-btn.active {
             background: #667eea;
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
         }
         
         .filter-btn.all-btn {
@@ -138,7 +142,7 @@
             color: #6c757d;
         }
         
-        .filter-btn.all-btn:hover, .filter-btn.all-btn.active {
+        .filter-btn.all-btn.active {
             background: #6c757d;
             color: white;
         }
@@ -149,10 +153,10 @@
             font-weight: bold;
         }
         
-        .highlight-btn:hover, .highlight-btn.active {
+        .highlight-btn.active {
             background: #e74c3c;
             color: white;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.4);
         }
         
         .jiti-btn {
@@ -161,18 +165,19 @@
             font-weight: bold;
         }
         
-        .jiti-btn:hover, .jiti-btn.active {
+        .jiti-btn.active {
             background: linear-gradient(135deg, #f0c040 0%, #d4a017 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.4);
+            box-shadow: 0 2px 10px rgba(212, 160, 23, 0.4);
         }
         
+        /* Results Info */
         .results-info {
             background: white;
-            padding: 15px 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -181,15 +186,15 @@
         .results-count {
             color: #667eea;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
         }
         
+        /* Results Table - desktop */
         .results-table {
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             overflow: hidden;
-            overflow-x: auto;
         }
         
         table {
@@ -203,24 +208,106 @@
         }
         
         th {
-            padding: 15px;
+            padding: 12px;
             text-align: left;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-        }
-        
-        th:hover {
-            background: rgba(255,255,255,0.1);
+            font-size: 14px;
         }
         
         td {
-            padding: 12px 15px;
+            padding: 10px 12px;
             border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
         }
         
-        tr:hover {
-            background: #f8f9ff;
+        /* Mobile Card View */
+        .mobile-cards {
+            display: none;
+        }
+        
+        .mobile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .mobile-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .mobile-card-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+            line-height: 1.4;
+        }
+        
+        .mobile-card-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: white;
+            white-space: nowrap;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        
+        .mobile-card-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .mobile-card-info span {
+            white-space: nowrap;
+        }
+        
+        .mobile-card-prices {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .mobile-card-prices .price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .mobile-card-prices .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+        
+        .mobile-card-prices .discount {
+            font-size: 13px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .mobile-card-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
         }
         
         .sheet-tag {
@@ -230,24 +317,13 @@
             color: white;
             border-radius: 20px;
             font-size: 12px;
-            margin: 2px;
         }
         
-        .sheet-tag.百元三件 {
-            background: #e74c3c;
-        }
-        
-        .sheet-tag.加油换购 {
-            background: #f39c12;
-        }
-        
-        .sheet-tag.会员特惠 {
-            background: #27ae60;
-        }
-        
-        .sheet-tag.计提标准 {
-            background: #d4a017;
-        }
+        .sheet-tag.百元三件 { background: #e74c3c; }
+        .sheet-tag.加油换购 { background: #f39c12; }
+        .sheet-tag.会员特惠 { background: #27ae60; }
+        .sheet-tag.计提标准 { background: #d4a017; }
+        .sheet-tag.环保环工 { background: #00a8a8; }
         
         .price {
             color: #e74c3c;
@@ -269,42 +345,46 @@
         
         .no-results {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             color: #999;
-            font-size: 18px;
+            font-size: 16px;
         }
         
         .loading {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             color: #667eea;
-            font-size: 18px;
+            font-size: 16px;
         }
         
+        /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            padding: 20px;
-            background: white;
-            border-radius: 0 0 15px 15px;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 16px;
         }
         
         .page-btn {
-            padding: 8px 15px;
+            padding: 10px 16px;
             border: 2px solid #667eea;
             background: white;
             color: #667eea;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            font-size: 15px;
+            min-width: 44px;
+            text-align: center;
         }
         
-        .page-btn:hover, .page-btn.active {
+        .page-btn.active {
             background: #667eea;
             color: white;
         }
         
+        /* Detail Modal */
         .detail-modal {
             display: none;
             position: fixed;
@@ -320,28 +400,38 @@
         
         .detail-content {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 12px;
             max-width: 800px;
-            max-height: 80vh;
+            width: 95%;
+            max-height: 85vh;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .detail-content h2 {
             color: #667eea;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            font-size: 18px;
         }
         
         .detail-row {
             display: flex;
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
         }
         
         .detail-label {
             font-weight: bold;
-            min-width: 150px;
+            min-width: 120px;
             color: #666;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            flex: 1;
+            word-break: break-all;
         }
         
         .detail-value-jiti {
@@ -351,13 +441,52 @@
         
         .close-btn {
             float: right;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             color: #999;
+            line-height: 1;
+            padding: 0 4px;
         }
         
-        .close-btn:hover {
-            color: #333;
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 768px) {
+            body { padding: 6px; }
+            
+            .header { padding: 14px 16px; border-radius: 10px; }
+            .header h1 { font-size: 17px; }
+            .header p { font-size: 12px; }
+            
+            .search-box { padding: 12px; border-radius: 10px; }
+            .search-row { gap: 6px; margin-bottom: 10px; }
+            .search-input { padding: 12px 14px; font-size: 16px; }
+            .btn { padding: 12px 16px; font-size: 14px; }
+            .btn-secondary { padding: 12px 14px; }
+            
+            .filter-label { font-size: 11px; margin-bottom: 3px; }
+            .filter-buttons { gap: 3px; }
+            .filter-btn { padding: 3px 7px; font-size: 11px; border-radius: 12px; border-width: 1px; }
+            
+            .results-info { padding: 10px 12px; border-radius: 10px; }
+            .results-count { font-size: 14px; }
+            
+            /* Hide table, show cards on mobile */
+            .results-table { border-radius: 10px; overflow: visible; background: transparent; box-shadow: none; }
+            #resultsTable { display: none !important; }
+            .mobile-cards { display: block; }
+            
+            .results-info { background: white; }
+            
+            .detail-content { padding: 16px; border-radius: 10px; width: 92%; max-height: 88vh; }
+            .detail-content h2 { font-size: 16px; }
+            .detail-row { font-size: 13px; padding: 8px 0; }
+            .detail-label { min-width: 100px; }
+            
+            .page-btn { padding: 8px 12px; font-size: 14px; min-width: 40px; }
+            .pagination { gap: 4px; padding: 10px; }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-cards { display: none; }
         }
     </style>
 </head>
@@ -371,25 +500,26 @@
         <div class="search-box">
             <div class="search-row">
                 <input type="text" class="search-input" id="searchInput" placeholder="输入商品名称、品牌、品类或商品编码...">
-                <button class="btn" onclick="search()">🔍 搜索</button>
+                <button class="btn" onclick="search()">🔍</button>
                 <button class="btn btn-secondary" onclick="resetSearch()">重置</button>
             </div>
             
             <div class="filter-section">
                 <label class="filter-label">🎯 营销活动</label>
                 <div class="filter-buttons" id="activityButtons">
-                    <button class="filter-btn all-btn active" onclick="filterByActivity('')">全部活动</button>
-                    <button class="filter-btn highlight-btn" onclick="filterByActivity('百元三件')">百元三件</button>
-                    <button class="filter-btn highlight-btn" onclick="filterByActivity('加油换购')">加油换购</button>
-                    <button class="filter-btn highlight-btn" onclick="filterByActivity('会员特惠')">会员特惠</button>
-                    <button class="filter-btn jiti-btn" onclick="filterByActivity('计提标准')">💰 计提标准</button>
+                    <button class="filter-btn all-btn active" onclick="filterByActivity('', event)">全部</button>
+                    <button class="filter-btn highlight-btn" onclick="filterByActivity('百元三件', event)">百元三件</button>
+                    <button class="filter-btn highlight-btn" onclick="filterByActivity('加油换购', event)">加油换购</button>
+                    <button class="filter-btn highlight-btn" onclick="filterByActivity('会员特惠', event)">会员特惠</button>
+                    <button class="filter-btn" onclick="filterByActivity('环保环工', event)">环保环工</button>
+                    <button class="filter-btn jiti-btn" onclick="filterByActivity('计提标准', event)">💰 计提</button>
                 </div>
             </div>
             
             <div class="filter-section">
                 <label class="filter-label">📦 品类筛选</label>
                 <div class="filter-buttons" id="categoryButtons">
-                    <button class="filter-btn all-btn active" onclick="filterByCategory('')">全部分类</button>
+                    <button class="filter-btn all-btn active" onclick="filterByCategory('', event)">全部</button>
                 </div>
             </div>
         </div>
@@ -397,21 +527,19 @@
         <div class="results-info">
             <div>
                 <span class="results-count" id="resultsCount">加载中...</span>
-                <span id="resultsText"></span>
             </div>
             <div>
-                <button class="btn btn-secondary" onclick="exportResults()">📥 导出结果</button>
+                <button class="btn btn-secondary" onclick="exportResults()">📥 导出</button>
             </div>
         </div>
         
         <div class="results-table">
             <div class="loading" id="loading">正在加载数据...</div>
             <table id="resultsTable" style="display: none;">
-                <thead id="tableHead">
-                </thead>
-                <tbody id="resultsBody">
-                </tbody>
+                <thead id="tableHead"></thead>
+                <tbody id="resultsBody"></tbody>
             </table>
+            <div class="mobile-cards" id="mobileCards"></div>
             <div class="no-results" id="noResults" style="display: none;">
                 没有找到匹配的商品，请尝试其他关键字
             </div>
@@ -430,32 +558,28 @@
     <script src="data.js"></script>
     <script>
         let allData = [];
-        let jitiData = [];  // 计提标准专用数据
+        let jitiData = [];
         let filteredData = [];
         let currentPage = 1;
-        const itemsPerPage = 20;
+        const itemsPerPage = 15;
         let currentSort = { col: -1, asc: true };
         let currentActivity = '';
         let currentCategory = '';
         let isJitiMode = false;
         
-        // 加载数据
         function loadData() {
             allData = [];
             jitiData = [];
             
-            // 从data.js中读取数据
             for (let sheetName in window.excelData) {
                 let sheet = window.excelData[sheetName];
                 
                 if (sheetName === '计提标准') {
-                    // 计提标准数据单独存储
                     sheet.data.forEach(row => {
                         row._sheet = sheetName;
                         jitiData.push(row);
                     });
                 } else {
-                    // 其他活动数据
                     sheet.data.forEach(row => {
                         row._sheet = sheetName;
                         allData.push(row);
@@ -463,10 +587,7 @@
                 }
             }
             
-            // 填充筛选器
             populateFilters();
-            
-            // 显示所有数据
             filteredData = allData;
             displayResults();
             
@@ -474,7 +595,6 @@
             document.getElementById('resultsTable').style.display = 'table';
         }
         
-        // 填充筛选器
         function populateFilters() {
             let categories = new Set();
             
@@ -483,82 +603,84 @@
                 if (category) categories.add(category);
             });
             
-            // 计提标准数据也加入品类
             jitiData.forEach(row => {
                 let category = row['品类'] || '';
                 if (category) categories.add(category);
             });
             
-            // 只显示指定的品类
             let allowedCategories = ['水饮料', '粮油副食', '酒类', '食品', '百货', '环保化工'];
             
-            // 填充品类按钮
             let categoryButtons = document.getElementById('categoryButtons');
             allowedCategories.forEach(c => {
                 if (categories.has(c)) {
                     let btn = document.createElement('button');
                     btn.className = 'filter-btn';
                     btn.textContent = c;
-                    btn.onclick = () => filterByCategory(c);
+                    btn.onclick = (e) => filterByCategory(c, e);
                     categoryButtons.appendChild(btn);
                 }
             });
         }
         
-        // 按活动筛选
-        function filterByActivity(activity) {
+        function filterByActivity(activity, e) {
+            if (e) e.preventDefault();
             currentActivity = activity;
             isJitiMode = (activity === '计提标准');
             
-            // 更新按钮状态
             let buttons = document.querySelectorAll('#activityButtons .filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (e && e.target) e.target.classList.add('active');
+            else {
+                let firstBtn = document.querySelector('#activityButtons .filter-btn.all-btn');
+                if (firstBtn) firstBtn.classList.add('active');
+            }
             
             performFilter();
         }
         
-        // 按品类筛选
-        function filterByCategory(category) {
+        function filterByCategory(category, e) {
+            if (e) e.preventDefault();
             currentCategory = category;
             
-            // 更新按钮状态
             let buttons = document.querySelectorAll('#categoryButtons .filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (e && e.target) e.target.classList.add('active');
+            else {
+                let firstBtn = document.querySelector('#categoryButtons .filter-btn.all-btn');
+                if (firstBtn) firstBtn.classList.add('active');
+            }
             
             performFilter();
         }
         
-        // 搜索
         function search() {
             performFilter();
         }
         
-        // 执行筛选
         function performFilter() {
             let keyword = document.getElementById('searchInput').value.trim().toLowerCase();
             
-            // 选择数据源
             let dataSource = isJitiMode ? jitiData : allData;
             
             filteredData = dataSource.filter(row => {
-                // 关键字搜索
                 if (keyword) {
                     let searchText = '';
                     for (let key in row) {
-                        if (row[key]) searchText += row[key].toLowerCase() + ' ';
+                        if (row[key]) searchText += row[key].toString().toLowerCase() + ' ';
                     }
                     if (!searchText.includes(keyword)) return false;
                 }
                 
-                // 活动筛选（非计提模式）
                 if (!isJitiMode && currentActivity) {
                     let rowActivity = row['活动类型'] || row._sheet || '';
-                    if (!rowActivity.includes(currentActivity)) return false;
+                    let rowMarketing = row['营销类别'] || '';
+                    if (currentActivity === '环保环工') {
+                        if (row._sheet !== '环保环工产品促销') return false;
+                    } else {
+                        if (!rowActivity.includes(currentActivity) && !rowMarketing.includes(currentActivity)) return false;
+                    }
                 }
                 
-                // 品类筛选
                 if (currentCategory) {
                     let rowCategory = row['品类'] || row['营销类别'] || '';
                     if (rowCategory !== currentCategory) return false;
@@ -571,7 +693,6 @@
             displayResults();
         }
         
-        // 渲染表头
         function renderTableHead() {
             let thead = document.getElementById('tableHead');
             
@@ -607,12 +728,12 @@
             }
         }
         
-        // 显示结果
         function displayResults() {
             let tbody = document.getElementById('resultsBody');
+            let mobileCards = document.getElementById('mobileCards');
             tbody.innerHTML = '';
+            mobileCards.innerHTML = '';
             
-            // 渲染表头
             renderTableHead();
             
             let count = filteredData.length;
@@ -620,79 +741,168 @@
             
             if (count === 0) {
                 document.getElementById('resultsTable').style.display = 'none';
+                mobileCards.style.display = 'none';
                 document.getElementById('noResults').style.display = 'block';
                 document.getElementById('pagination').style.display = 'none';
                 return;
             }
             
             document.getElementById('resultsTable').style.display = 'table';
+            mobileCards.style.display = 'block';
             document.getElementById('noResults').style.display = 'none';
             
-            // 分页
             let start = (currentPage - 1) * itemsPerPage;
             let end = Math.min(start + itemsPerPage, count);
             let pageData = filteredData.slice(start, end);
             
             if (isJitiMode) {
                 displayJitiTable(pageData, start);
+                displayJitiMobileCards(pageData, start);
             } else {
                 displayNormalTable(pageData, start);
+                displayNormalMobileCards(pageData, start);
             }
             
-            // 分页控件
             updatePagination(count);
         }
         
-        // 显示计提标准表格
+        // === Mobile Card Views ===
+        function displayNormalMobileCards(pageData, start) {
+            let container = document.getElementById('mobileCards');
+            
+            pageData.forEach((row, idx) => {
+                let card = document.createElement('div');
+                card.className = 'mobile-card';
+                
+                let activity = row['活动类型'] || row._sheet || '';
+                let activityClass = activity.includes('百元三件') ? '百元三件' : 
+                                   activity.includes('加油换购') ? '加油换购' : 
+                                   activity.includes('会员特惠') ? '会员特惠' :
+                                   row._sheet === '环保环工产品促销' ? '环保环工' : '';
+                let activityColor = activityClass === '百元三件' ? '#e74c3c' :
+                                   activityClass === '加油换购' ? '#f39c12' :
+                                   activityClass === '会员特惠' ? '#27ae60' :
+                                   activityClass === '环保环工' ? '#00a8a8' : '#667eea';
+                
+                let name = row['商品名称'] || '-';
+                let brand = row['品牌'] || '';
+                let code = row['商品编码'] || '';
+                let category = row['品类'] || row['营销类别'] || '';
+                
+                let originalPrice = row['非高速零售价'] || row['零售价（元）'] || row['最低零售价'] || '';
+                let promoPrice = row['组合促销价'] || row['促销价（元）'] || row['单品促销价'] || '';
+                let discount = row['折扣力度'] || '';
+                let discountStr = '';
+                if (discount && !isNaN(discount)) {
+                    discountStr = `${(parseFloat(discount) * 10).toFixed(1)}折`;
+                }
+                
+                let remark = row['备注'] || '';
+                let jitiStd = row['计提标准(元)'] || '';
+                
+                card.innerHTML = `
+                    <div class="mobile-card-header">
+                        <div class="mobile-card-name">${name}</div>
+                        ${activity ? `<span class="mobile-card-tag" style="background:${activityColor};">${activity}</span>` : ''}
+                    </div>
+                    <div class="mobile-card-info">
+                        ${brand ? `<span>品牌: ${brand}</span>` : ''}
+                        ${code ? `<span>编码: ${code}</span>` : ''}
+                        ${category ? `<span>品类: ${category}</span>` : ''}
+                    </div>
+                    <div class="mobile-card-prices">
+                        ${promoPrice ? `<span class="price">¥${promoPrice}</span>` : ''}
+                        ${originalPrice ? `<span class="original-price">¥${originalPrice}</span>` : ''}
+                        ${discountStr ? `<span class="discount">${discountStr}</span>` : ''}
+                    </div>
+                    ${remark ? `<div style="font-size:12px;color:#888;margin-bottom:8px;">备注: ${remark}</div>` : ''}
+                    ${jitiStd ? `<div style="font-size:13px;color:#d4a017;font-weight:bold;margin-bottom:8px;">💰 计提标准: ¥${jitiStd} ${row['计提系数'] ? '| 系数:' + row['计提系数'] : ''}</div>` : ''}
+                    <button class="mobile-card-btn" onclick='showDetail(${JSON.stringify(JSON.stringify(row))})'>查看详情</button>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        function displayJitiMobileCards(pageData, start) {
+            let container = document.getElementById('mobileCards');
+            
+            pageData.forEach((row, idx) => {
+                let card = document.createElement('div');
+                card.className = 'mobile-card';
+                
+                let typeVal = row['类型'] || '';
+                let typeColor = typeVal === '培育' ? '#27ae60' : typeVal === '新品' ? '#3498db' : typeVal === '创效' ? '#e74c3c' : '#667eea';
+                
+                let jitiVal = row['计提标准(元)'] || '';
+                let remarkVal = row['备注'] || '';
+                let remarkColor = remarkVal.includes('新增') ? '#27ae60' : 
+                                  remarkVal.includes('上调') ? '#e74c3c' : 
+                                  remarkVal.includes('下调') ? '#f39c12' : '#666';
+                
+                card.innerHTML = `
+                    <div class="mobile-card-header">
+                        <div class="mobile-card-name">${row['商品名称'] || '-'}</div>
+                        ${typeVal ? `<span class="mobile-card-tag" style="background:${typeColor};">${typeVal}</span>` : ''}
+                    </div>
+                    <div class="mobile-card-info">
+                        ${row['品类'] ? `<span>品类: ${row['品类']}</span>` : ''}
+                        ${row['商品编码'] ? `<span>编码: ${row['商品编码']}</span>` : ''}
+                        ${row['单位'] ? `<span>单位: ${row['单位']}</span>` : ''}
+                    </div>
+                    <div class="mobile-card-prices">
+                        ${jitiVal ? `<span class="jiti-price">¥${jitiVal}</span>` : ''}
+                        <span style="font-size:14px;color:#666;">系数: ${row['计提系数'] || '1'}</span>
+                    </div>
+                    ${remarkVal ? `<div style="font-size:12px;color:${remarkColor};margin-bottom:8px;">${remarkVal}</div>` : ''}
+                    <button class="mobile-card-btn" onclick='showDetail(${JSON.stringify(JSON.stringify(row))})'>查看详情</button>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // === Desktop Table Views ===
         function displayJitiTable(pageData, start) {
             let tbody = document.getElementById('resultsBody');
             
             pageData.forEach((row, idx) => {
                 let tr = document.createElement('tr');
                 
-                // 序号
                 let td0 = document.createElement('td');
                 td0.textContent = start + idx + 1;
                 tr.appendChild(td0);
                 
-                // 品类
                 let td1 = document.createElement('td');
                 td1.textContent = row['品类'] || '-';
                 tr.appendChild(td1);
                 
-                // 类型
                 let td2 = document.createElement('td');
                 let typeVal = row['类型'] || '-';
                 let typeColor = typeVal === '培育' ? '#27ae60' : typeVal === '新品' ? '#3498db' : typeVal === '创效' ? '#e74c3c' : '#333';
                 td2.innerHTML = `<span style="color:${typeColor};font-weight:bold;">${typeVal}</span>`;
                 tr.appendChild(td2);
                 
-                // 商品编码
                 let td3 = document.createElement('td');
                 td3.textContent = row['商品编码'] || '-';
                 td3.style.fontFamily = 'monospace';
                 tr.appendChild(td3);
                 
-                // 商品名称
                 let td4 = document.createElement('td');
                 td4.textContent = row['商品名称'] || '-';
                 td4.style.fontWeight = 'bold';
                 tr.appendChild(td4);
                 
-                // 计提标准(元)
                 let td5 = document.createElement('td');
                 let jitiVal = row['计提标准(元)'] || '';
                 td5.innerHTML = jitiVal ? `<span class="jiti-price">¥${jitiVal}</span>` : '-';
                 tr.appendChild(td5);
                 
-                // 计提系数
                 let td6 = document.createElement('td');
-                let coefVal = row['计提系数'] || '1';
-                td6.textContent = coefVal;
+                td6.textContent = row['计提系数'] || '1';
                 td6.style.textAlign = 'center';
                 tr.appendChild(td6);
                 
-                // 备注
                 let td7 = document.createElement('td');
                 let remarkVal = row['备注'] || '';
                 let remarkColor = remarkVal.includes('新增') ? '#27ae60' : 
@@ -701,7 +911,6 @@
                 td7.innerHTML = remarkVal ? `<span style="color:${remarkColor};font-size:12px;">${remarkVal}</span>` : '-';
                 tr.appendChild(td7);
                 
-                // 操作
                 let td8 = document.createElement('td');
                 let btn = document.createElement('button');
                 btn.className = 'btn btn-secondary';
@@ -716,63 +925,53 @@
             });
         }
         
-        // 显示普通促销表格
         function displayNormalTable(pageData, start) {
             let tbody = document.getElementById('resultsBody');
             
             pageData.forEach((row, idx) => {
                 let tr = document.createElement('tr');
                 
-                // 序号
                 let td1 = document.createElement('td');
                 td1.textContent = start + idx + 1;
                 tr.appendChild(td1);
                 
-                // 营销活动
                 let td2 = document.createElement('td');
                 let activity = row['活动类型'] || row._sheet || '';
                 let activityClass = activity.includes('百元三件') ? '百元三件' : 
                                    activity.includes('加油换购') ? '加油换购' : 
-                                   activity.includes('会员特惠') ? '会员特惠' : '';
+                                   activity.includes('会员特惠') ? '会员特惠' :
+                                   row._sheet === '环保环工产品促销' ? '环保环工' : '';
                 td2.innerHTML = `<span class="sheet-tag ${activityClass}">${activity}</span>`;
                 tr.appendChild(td2);
                 
-                // 品牌
                 let td3 = document.createElement('td');
                 td3.textContent = row['品牌'] || '-';
                 tr.appendChild(td3);
                 
-                // 品类
                 let td4 = document.createElement('td');
                 td4.textContent = row['品类'] || row['营销类别'] || '-';
                 tr.appendChild(td4);
                 
-                // 商品名称
                 let td5 = document.createElement('td');
-                let name = row['商品名称'] || '-';
-                td5.textContent = name;
+                td5.textContent = row['商品名称'] || '-';
                 td5.style.fontWeight = 'bold';
                 tr.appendChild(td5);
                 
-                // 商品编码
                 let td6 = document.createElement('td');
                 td6.textContent = row['商品编码'] || '-';
                 td6.style.fontFamily = 'monospace';
                 tr.appendChild(td6);
                 
-                // 原价
                 let td7 = document.createElement('td');
-                let originalPrice = row['非高速零售价'] || row['零售价（元）'] || row['最低零售价'] || row['非高速零售价\n（元）'] || '';
+                let originalPrice = row['非高速零售价'] || row['零售价（元）'] || row['最低零售价'] || '';
                 td7.innerHTML = originalPrice ? `<span class="original-price">${originalPrice}</span>` : '-';
                 tr.appendChild(td7);
                 
-                // 促销价
                 let td8 = document.createElement('td');
-                let promoPrice = row['组合促销价'] || row['促销价（元）'] || row['单品促销价'] || row['换购总价\n（元）'] || '';
+                let promoPrice = row['组合促销价'] || row['促销价（元）'] || row['单品促销价'] || '';
                 td8.innerHTML = promoPrice ? `<span class="price">¥${promoPrice}</span>` : '-';
                 tr.appendChild(td8);
                 
-                // 折扣力度
                 let td9 = document.createElement('td');
                 let discount = row['折扣力度'] || '';
                 if (discount && !isNaN(discount)) {
@@ -785,7 +984,6 @@
                 }
                 tr.appendChild(td9);
                 
-                // 操作
                 let td10 = document.createElement('td');
                 let btn = document.createElement('button');
                 btn.className = 'btn btn-secondary';
@@ -800,7 +998,6 @@
             });
         }
         
-        // 更新分页
         function updatePagination(total) {
             let pagination = document.getElementById('pagination');
             let totalPages = Math.ceil(total / itemsPerPage);
@@ -813,43 +1010,38 @@
             pagination.style.display = 'flex';
             pagination.innerHTML = '';
             
-            // 上一页
             if (currentPage > 1) {
                 let btn = document.createElement('button');
                 btn.className = 'page-btn';
-                btn.textContent = '上一页';
-                btn.onclick = () => { currentPage--; displayResults(); };
+                btn.textContent = '◀';
+                btn.onclick = () => { currentPage--; displayResults(); window.scrollTo(0, 0); };
                 pagination.appendChild(btn);
             }
             
-            // 页码
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
-                    let btn = document.createElement('button');
-                    btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
-                    btn.textContent = i;
-                    btn.onclick = () => { currentPage = i; displayResults(); };
-                    pagination.appendChild(btn);
-                } else if (Math.abs(i - currentPage) === 3) {
-                    let span = document.createElement('span');
-                    span.textContent = '...';
-                    span.style.padding = '8px';
-                    pagination.appendChild(span);
-                }
+            let maxVisible = window.innerWidth < 769 ? 3 : 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            if (endPage - startPage < maxVisible - 1) startPage = Math.max(1, endPage - maxVisible + 1);
+            
+            for (let i = startPage; i <= endPage; i++) {
+                let btn = document.createElement('button');
+                btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+                btn.textContent = i;
+                btn.onclick = () => { currentPage = i; displayResults(); window.scrollTo(0, 0); };
+                pagination.appendChild(btn);
             }
             
-            // 下一页
             if (currentPage < totalPages) {
                 let btn = document.createElement('button');
                 btn.className = 'page-btn';
-                btn.textContent = '下一页';
-                btn.onclick = () => { currentPage++; displayResults(); };
+                btn.textContent = '▶';
+                btn.onclick = () => { currentPage++; displayResults(); window.scrollTo(0, 0); };
                 pagination.appendChild(btn);
             }
         }
         
-        // 显示详情
-        function showDetail(row) {
+        function showDetail(rowStr) {
+            let row = typeof rowStr === 'string' ? JSON.parse(rowStr) : rowStr;
             let title = document.getElementById('detailTitle');
             let body = document.getElementById('detailBody');
             
@@ -867,11 +1059,11 @@
                 label.textContent = key;
                 
                 let value = document.createElement('div');
+                value.className = 'detail-value';
                 let val = row[key] || '-';
                 
-                // 计提相关字段高亮显示
                 if (key.includes('计提')) {
-                    value.className = 'detail-value-jiti';
+                    value.classList.add('detail-value-jiti');
                     if (key.includes('标准') && val !== '-') {
                         val = '¥' + val;
                     }
@@ -887,31 +1079,29 @@
             document.getElementById('detailModal').style.display = 'flex';
         }
         
-        // 关闭详情
         function closeDetail() {
             document.getElementById('detailModal').style.display = 'none';
         }
         
-        // 重置搜索
         function resetSearch() {
             document.getElementById('searchInput').value = '';
             currentActivity = '';
             currentCategory = '';
             isJitiMode = false;
             
-            // 重置按钮状态
             document.querySelectorAll('#activityButtons .filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('#activityButtons .filter-btn.all-btn').classList.add('active');
+            let allActBtn = document.querySelector('#activityButtons .filter-btn.all-btn');
+            if (allActBtn) allActBtn.classList.add('active');
             
             document.querySelectorAll('#categoryButtons .filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('#categoryButtons .filter-btn.all-btn').classList.add('active');
+            let allCatBtn = document.querySelector('#categoryButtons .filter-btn.all-btn');
+            if (allCatBtn) allCatBtn.classList.add('active');
             
             filteredData = allData;
             currentPage = 1;
             displayResults();
         }
         
-        // 排序
         function sortTable(colIdx) {
             if (currentSort.col === colIdx) {
                 currentSort.asc = !currentSort.asc;
@@ -921,14 +1111,12 @@
             }
             
             if (isJitiMode) {
-                // 计提模式排序
                 let keyMap = ['', '品类', '类型', '商品编码', '商品名称', '计提标准(元)', '计提系数'];
                 let key = keyMap[colIdx];
                 if (key) {
                     filteredData.sort((a, b) => {
                         let va = (a[key] || '').toString();
                         let vb = (b[key] || '').toString();
-                        // 数字排序
                         if (key === '计提标准(元)' || key === '计提系数') {
                             let na = parseFloat(va) || 0;
                             let nb = parseFloat(vb) || 0;
@@ -952,18 +1140,15 @@
             displayResults();
         }
         
-        // 导出结果
         function exportResults() {
-            let csv = '\ufeff'; // BOM for Excel
+            let csv = '\ufeff';
             
             if (isJitiMode) {
-                // 计提标准导出
                 csv += '品类,类型,商品编码,商品名称,单位,计提标准(元),计提系数,备注\n';
                 filteredData.forEach(row => {
                     csv += `"${row['品类'] || ''}","${row['类型'] || ''}","${row['商品编码'] || ''}","${row['商品名称'] || ''}","${row['单位'] || ''}","${row['计提标准(元)'] || ''}","${row['计提系数'] || '1'}","${row['备注'] || ''}"\n`;
                 });
             } else {
-                // 普通导出
                 csv += '营销活动,品牌,品类,商品名称,商品编码,原价,促销价,折扣力度,计提标准(元),计提系数\n';
                 filteredData.forEach(row => {
                     let activity = row['活动类型'] || row._sheet || '';
@@ -992,17 +1177,14 @@
             link.click();
         }
         
-        // 回车搜索
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') search();
         });
         
-        // 点击弹窗外部关闭
         document.getElementById('detailModal').addEventListener('click', function(e) {
             if (e.target === this) closeDetail();
         });
         
-        // 加载数据
         window.onload = function() {
             if (window.excelData) {
                 loadData();
